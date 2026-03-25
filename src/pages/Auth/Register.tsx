@@ -22,6 +22,7 @@ const Register: React.FC = () => {
     defaultValues: {
       email: '',
       password: '',
+      confirmPassword: '',
       firstName: '',
       lastName: '',
       username: '',
@@ -187,7 +188,7 @@ const Register: React.FC = () => {
                 </p>
               )}
               <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                Pode conter letras, números, pontos, underscores e hífens
+                Pode conter apenas letras, números e underscores
               </p>
             </div>
 
@@ -298,6 +299,25 @@ const Register: React.FC = () => {
                   </li>
                 </ul>
               </div>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="confirmPassword" className="label">
+                Confirmar Senha
+              </label>
+              <input
+                id="confirmPassword"
+                type="password"
+                autoComplete="new-password"
+                className={`input ${errors.confirmPassword ? 'input-error' : ''}`}
+                placeholder="••••••••"
+                {...register('confirmPassword')}
+              />
+              {errors.confirmPassword && (
+                <p className="mt-1 text-sm text-danger-600 dark:text-danger-400">
+                  {errors.confirmPassword.message}
+                </p>
+              )}
             </div>
 
             <div className="form-group">

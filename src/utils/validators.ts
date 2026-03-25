@@ -16,7 +16,7 @@ export const usernameSchema = z
   .string()
   .min(3, 'Username deve ter pelo menos 3 caracteres')
   .max(30, 'Username não pode exceder 30 caracteres')
-  .regex(/^[a-zA-Z0-9_.-]+$/, 'Username pode conter apenas letras, números, pontos, underscores e hífens')
+  .regex(/^[a-zA-Z0-9_]+$/, 'Username pode conter apenas letras, números e underscores')
 
 export const nameSchema = z
   .string()
@@ -49,12 +49,16 @@ export const loginSchema = z.object({
 export const registerSchema = z.object({
   email: emailSchema,
   password: passwordSchema,
+  confirmPassword: z.string().min(1, 'Confirmação de senha é obrigatória'),
   firstName: nameSchema,
   lastName: nameSchema,
   username: usernameSchema,
   birthDate: birthDateSchema,
   country: z.string().max(100, 'País não pode exceder 100 caracteres').optional(),
   city: z.string().max(100, 'Cidade não pode exceder 100 caracteres').optional(),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: 'As senhas não coincidem',
+  path: ['confirmPassword'],
 })
 
 // Race creation validation schema
