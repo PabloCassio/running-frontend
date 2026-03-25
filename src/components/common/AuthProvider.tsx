@@ -12,6 +12,7 @@ interface AuthContextType {
   register: (data: any) => Promise<void>
   logout: () => Promise<void>
   updateProfile: (data: any) => Promise<void>
+  changePassword: (data: { currentPassword: string; newPassword: string }) => Promise<void>
   refreshUser: () => Promise<void>
 }
 
@@ -113,6 +114,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   }
 
+  const changePassword = async (data: { currentPassword: string; newPassword: string }) => {
+    try {
+      await authApi.changePassword(data)
+      toast.success('Senha alterada com sucesso!')
+    } catch (error) {
+      toast.error('Erro ao alterar senha.')
+      throw error
+    }
+  }
+
   const refreshUser = async () => {
     await refetch()
   }
@@ -164,6 +175,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     register,
     logout,
     updateProfile,
+    changePassword,
     refreshUser,
   }
 
