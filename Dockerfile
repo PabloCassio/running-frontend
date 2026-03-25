@@ -1,6 +1,6 @@
 # Dockerfile para desenvolvimento do frontend do Maratona Ao Vivo
 
-FROM node:18-alpine
+FROM node:20-alpine
 
 WORKDIR /app
 

@@ -4,6 +4,20 @@
 version: '3.8'
 
 services:
+  # Frontend em modo teste (CI)
+  frontend-test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: maratona-frontend-test
+    environment:
+      NODE_ENV: test
+      CI: "true"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run test:ci
+
   # Frontend em modo desenvolvimento
   frontend:
     build:
@@ -21,84 +35,4 @@ services:
       - .:/app
       - /app/node_modules
       - /app/dist
-    networks:
-      - maratona-frontend-network
     command: npm run dev
-
-  # Backend (opcional - para desenvolvimento integrado)
-  backend:
-    image: maratona-backend-dev
-    container_name: maratona-backend-frontend-dev
-    build:
-      context: ../backend
-      dockerfile: Dockerfile
-    ports:
-      - "5000:5000"
-    environment:
-      NODE_ENV: development
-      CLIENT_URL: http://localhost:3000
-      DB_HOST: postgres
-      DB_PORT: 5432
-      DB_NAME: maratona_db
-      DB_USER: maratona_user
-      DB_PASSWORD: maratona_password
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
-    volumes:
-      - ../backend:/app
-      - /app/node_modules
-    depends_on:
-      - postgres
-      - redis
-    networks:
-      - maratona-frontend-network
-    command: nodemon src/server.js
-
-  # Banco de dados PostgreSQL (opcional)
-  postgres:
-    image: postgres:15-alpine
-    container_name: maratona-postgres-frontend-dev
-    environment:
-      POSTGRES_DB: maratona_db
-      POSTGRES_USER: maratona_user
-      POSTGRES_PASSWORD: maratona_password
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ../backend/init-db.sql:/docker-entrypoint-initdb.d/init.sql
-    networks:
-      - maratona-frontend-network
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U maratona_user -d maratona_db"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  # Redis para cache e sessões (opcional)
-  redis:
-    image: redis:7-alpine
-    container_name: maratona-redis-frontend-dev
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis_data:/data
-    command: redis-server --appendonly yes
-    networks:
-      - maratona-frontend-network
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-volumes:
-  postgres_data:
-    driver: local
-  redis_data:
-    driver: local
-
-networks:
-  maratona-frontend-network:
-    driver: bridge
-    name: maratona-frontend-network

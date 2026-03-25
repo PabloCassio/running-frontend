@@ -14,7 +14,7 @@
     "test:integration": "vitest --testPathPattern=__tests__/integration",
     "test:e2e": "playwright test",
     "test:e2e:ci": "playwright test --reporter=html",
-    "test:ci": "vitest run --coverage --reporter=verbose",
+    "test:ci": "vitest run --coverage --reporter=verbose --passWithNoTests",
     "test:watch": "vitest --watch",
     "test:coverage": "vitest --coverage"
   },
@@ -56,6 +56,8 @@
     "typescript": "^5.0.2",
     "vite": "^5.0.0",
     "vite-plugin-pwa": "^0.17.4",
-    "vitest": "^4.1.0"
+    "vitest": "^4.1.0",
+    "@vitest/coverage-v8": "^4.1.0",
+    "@types/node": "^20.0.0"
   }
 }
