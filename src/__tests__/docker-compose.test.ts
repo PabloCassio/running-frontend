@@ -37,3 +37,17 @@ describe('Behavior 3: rede isolada não deve ser declarada no frontend', () => {
     expect(content).not.toContain('maratona-frontend-network')
   })
 })
+
+describe('Behavior 4: serviço frontend mantém configuração correta', () => {
+  it('deve conter o serviço frontend', () => {
+    expect(content).toMatch(/^ {2}frontend:\s*$/m)
+  })
+
+  it('deve expor a porta 3000', () => {
+    expect(content).toContain('3000:3000')
+  })
+
+  it('deve configurar VITE_API_URL apontando para localhost:5000', () => {
+    expect(content).toContain('VITE_API_URL: http://localhost:5000')
+  })
+})
