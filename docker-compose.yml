@@ -35,11 +35,4 @@ services:
       - .:/app
       - /app/node_modules
       - /app/dist
-    networks:
-      - maratona-frontend-network
     command: npm run dev
-
-networks:
-  maratona-frontend-network:
-    driver: bridge
-    name: maratona-frontend-network

@@ -31,3 +31,9 @@ describe('Behavior 2: volumes de infraestrutura não pertencem ao frontend', () 
     expect(content).not.toContain('redis_data')
   })
 })
+
+describe('Behavior 3: rede isolada não deve ser declarada no frontend', () => {
+  it('não deve declarar a rede maratona-frontend-network', () => {
+    expect(content).not.toContain('maratona-frontend-network')
+  })
+})
