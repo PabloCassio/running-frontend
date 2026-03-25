@@ -1,0 +1,86 @@
+{
+  "name": "Maratona Ao Vivo",
+  "short_name": "Maratona",
+  "description": "Competições de running em tempo real - PWA",
+  "theme_color": "#f97316",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Dashboard da Maratona Ao Vivo"
+    },
+    {
+      "src": "/screenshot-mobile.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Tracking de corrida em tempo real"
+    }
+  ],
+  "categories": ["health", "sports", "lifestyle"],
+  "shortcuts": [
+    {
+      "name": "Nova Corrida",
+      "short_name": "Corrida",
+      "description": "Criar uma nova corrida",
+      "url": "/races/create",
+      "icons": [{ "src": "/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "Ver estatísticas e atividades",
+      "url": "/dashboard",
+      "icons": [{ "src": "/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Tracking Ao Vivo",
+      "short_name": "Tracking",
+      "description": "Acompanhar corrida em tempo real",
+      "url": "/tracking",
+      "icons": [{ "src": "/icon-96x96.png", "sizes": "96x96" }]
+    }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "GET",
+    "params": {
+      "title": "name",
+      "text": "description",
+      "url": "link"
+    }
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "web+maratona",
+      "url": "/launch?url=%s"
+    }
+  ]
+}
