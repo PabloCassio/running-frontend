@@ -21,3 +21,13 @@ describe('Behavior 1: serviços de infraestrutura não pertencem ao frontend', (
     expect(content).not.toMatch(/^ {2}redis:\s*$/m)
   })
 })
+
+describe('Behavior 2: volumes de infraestrutura não pertencem ao frontend', () => {
+  it('não deve declarar o volume postgres_data', () => {
+    expect(content).not.toContain('postgres_data')
+  })
+
+  it('não deve declarar o volume redis_data', () => {
+    expect(content).not.toContain('redis_data')
+  })
+})
